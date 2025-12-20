@@ -36,6 +36,7 @@ gradlePlugin {
             displayName = "Inspecta"
             description = "A powerful CLI tool to audit Android app size, assets, libraries, and unused resources."
             tags.set(listOf("android", "analytics", "size", "bloat", "assets"))
+            version = "1.0.0"
         }
     }
 }
