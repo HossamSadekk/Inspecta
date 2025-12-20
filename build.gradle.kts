@@ -8,6 +8,19 @@ plugins {
 group = "org.plugin.inspecta"
 version = "1.0.0"
 
+// Configure Java compatibility
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// Configure Kotlin to target JVM 17
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 repositories {
     mavenCentral()
     google()
@@ -16,7 +29,6 @@ repositories {
 gradlePlugin {
     website.set("https://github.com/HossamSadekk/Inspecta")
     vcsUrl.set("https://github.com/HossamSadekk/Inspecta")
-
     plugins {
         create("inspecta") {
             id = "org.plugin.inspecta"
@@ -27,6 +39,7 @@ gradlePlugin {
         }
     }
 }
+
 dependencies {
     implementation("com.android.tools.build:gradle:8.3.0")
     testImplementation(kotlin("test"))
