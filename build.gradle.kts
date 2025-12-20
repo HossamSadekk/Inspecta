@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm") version "2.0.0"
 }
 
-group = "com.inspecta.plugin"
+group = "org.plugin.inspecta"
 version = "1.0.0"
 
 repositories {
@@ -19,8 +19,8 @@ gradlePlugin {
 
     plugins {
         create("inspecta") {
-            id = "com.inspecta.plugin"
-            implementationClass = "com.inspecta.plugin.InspectaPlugin"
+            id = "org.plugin.inspecta"
+            implementationClass = "org.plugin.inspecta.InspectaPlugin"
             displayName = "Inspecta"
             description = "A powerful CLI tool to audit Android app size, assets, libraries, and unused resources."
             tags.set(listOf("android", "analytics", "size", "bloat", "assets"))
