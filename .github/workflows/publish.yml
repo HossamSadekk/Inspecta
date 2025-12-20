@@ -1,0 +1,58 @@
+name: Publish Gradle Plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "PUBLISH" to confirm'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    # Multi-layer security checks
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.repository == 'HossamSadekk/Inspecta' &&
+      github.actor == 'HossamSadekk'
+
+    steps:
+      - name: Verify confirmation
+        if: inputs.confirm != 'PUBLISH'
+        run: |
+          echo "❌ You must type 'PUBLISH' to proceed"
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Validate plugin
+        run: ./gradlew validatePlugins
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Publish plugin
+        env:
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+        run: ./gradlew publishPlugins --no-daemon --stacktrace
+
+      - name: Create release tag
+        if: success()
+        run: |
+          VERSION=$(grep "version = " build.gradle.kts | cut -d'"' -f2)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${VERSION}" || echo "Tag already exists"
+          git push origin "v${VERSION}" || echo "Tag already pushed"
