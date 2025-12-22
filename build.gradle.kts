@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "org.plugin.inspecta"
-version = "1.1.1"
+version = "1.1.2"
 
 // Configure Java compatibility
 java {
@@ -36,7 +36,7 @@ gradlePlugin {
             displayName = "Inspecta"
             description = "A powerful CLI tool to audit Android app size, assets, libraries, and unused resources."
             tags.set(listOf("android", "analytics", "size", "bloat", "assets"))
-            version = "1.1.1"
+            version = "1.1.2"
         }
     }
 }
@@ -47,7 +47,7 @@ publishing {
             from(components["java"])
             groupId = "com.github.HossamSadekk"
             artifactId = "Inspecta"
-            version = "1.1.1"
+            version = "1.1.2"
         }
     }
 }
