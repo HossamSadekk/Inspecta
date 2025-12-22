@@ -1,0 +1,7 @@
+# jitpack.yml
+jdk:
+  - openjdk17
+
+# Ensure JitPack uses the correct publishing task for a Gradle plugin
+install:
+  - ./gradlew publishToMavenLocal -Dmaven.repo.local=$HOME/.m2/repository
