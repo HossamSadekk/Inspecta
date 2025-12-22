@@ -53,7 +53,6 @@ publishing {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:8.3.0")
     testImplementation(kotlin("test"))
 }
 
