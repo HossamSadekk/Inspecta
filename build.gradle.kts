@@ -5,7 +5,7 @@ plugins {
     kotlin("jvm") version "2.0.0"
 }
 
-group = "org.plugin.inspecta"
+group = "io.github.HossamSadekk"
 version = "1.1.2"
 
 // Configure Java compatibility
@@ -31,23 +31,11 @@ gradlePlugin {
     vcsUrl.set("https://github.com/HossamSadekk/Inspecta")
     plugins {
         create("inspecta") {
-            id = "org.plugin.inspecta"
+            id = "io.github.HossamSadekk.inspecta"
             implementationClass = "org.plugin.inspecta.InspectaPlugin"
             displayName = "Inspecta"
             description = "A powerful CLI tool to audit Android app size, assets, libraries, and unused resources."
             tags.set(listOf("android", "analytics", "size", "bloat", "assets"))
-            version = "1.1.2"
-        }
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-            groupId = "com.github.HossamSadekk"
-            artifactId = "Inspecta"
-            version = "1.1.2"
         }
     }
 }
