@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.HossamSadekk"
-version = "1.1.2"
+version = "2.0.0"
 
 // Configure Java compatibility
 java {
@@ -23,6 +23,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     google()
 }
 

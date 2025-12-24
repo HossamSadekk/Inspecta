@@ -2,6 +2,7 @@ package org.plugin.inspecta
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.plugin.inspecta.task.CleanupTask
 import org.plugin.inspecta.task.InspectTask
 
 class InspectaPlugin : Plugin<Project> {
@@ -9,6 +10,11 @@ class InspectaPlugin : Plugin<Project> {
         project.tasks.register("inspect", InspectTask::class.java) {
             it.group = "Inspecta"
             it.description = "Generates a detailed audit of app size, assets, and libraries."
+        }
+
+        project.tasks.register("cleanupResources", CleanupTask::class.java) {
+            it.group = "Inspecta"
+            it.description = "Removes unused resources (PNG, JPG, WebP, SVG, etc.) from your project."
         }
     }
 }
