@@ -44,8 +44,11 @@ gradlePlugin {
 dependencies {
     compileOnly("com.android.tools.build:gradle:8.3.0")
     testImplementation(kotlin("test"))
+    testImplementation("junit:junit:4.13.2")
+    testImplementation(gradleTestKit())
+    testImplementation("com.android.tools.build:gradle:8.3.0")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnit()
 }

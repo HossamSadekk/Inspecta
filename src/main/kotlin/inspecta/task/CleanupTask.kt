@@ -40,16 +40,28 @@ abstract class CleanupTask : DefaultTask() {
             return
         }
 
-        // Collect resources
+        // Collect resources from Android modules only
         val allModules = project.rootProject.allprojects
-        println("🔍 Scanning ${allModules.size} modules for unused resources...")
+        val androidModules = allModules.filter { module ->
+            module.plugins.hasPlugin("com.android.application") ||
+            module.plugins.hasPlugin("com.android.library")
+        }
+
+        if (androidModules.isEmpty()) {
+            println("❌ Error: No Android modules found!")
+            println("   Make sure your project has Android app or library modules.")
+            println()
+            return
+        }
+
+        println("🔍 Scanning ${androidModules.size} Android modules for unused resources...")
         println()
 
         val unusedFiles = mutableListOf<File>()
 
-        // Scan code from all modules
+        // Scan code from Android modules only
         val codeBuilder = StringBuilder()
-        allModules.forEach { subproject ->
+        androidModules.forEach { subproject ->
             val srcDir = File(subproject.projectDir, "src/main")
             val javaDir = File(srcDir, "java")
             val kotlinDir = File(srcDir, "kotlin")
@@ -64,8 +76,8 @@ abstract class CleanupTask : DefaultTask() {
 
         val codeBlob = codeBuilder.toString()
 
-        // Scan resources from all modules
-        allModules.forEach { subproject ->
+        // Scan resources from Android modules only
+        androidModules.forEach { subproject ->
             val srcDir = File(subproject.projectDir, "src/main")
             val resDir = File(srcDir, "res")
 
@@ -144,9 +156,12 @@ abstract class CleanupTask : DefaultTask() {
 
         // Group by module
         val byModule = unusedFiles.groupBy { file ->
-            allModules.find { module ->
-                file.absolutePath.startsWith(module.projectDir.absolutePath)
-            }?.name ?: "unknown"
+            androidModules
+                .filter { module ->
+                    file.absolutePath.startsWith(module.projectDir.absolutePath)
+                }
+                .maxByOrNull { it.projectDir.absolutePath.length }  // Longest path = most specific module
+                ?.name ?: "unknown"
         }
 
         println("📂 Breakdown by module:")
