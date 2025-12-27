@@ -232,10 +232,6 @@ abstract class InspectTask : DefaultTask() {
                     println("   - ${arch.padEnd(15)}: ${formatSize(archSize).padStart(10)} (${String.format("%.1f", percent)}%) - ${archLibs.size} files")
                 }
             }
-
-            println("\n   💡 These libraries come from your Gradle dependencies:")
-            println("      - ML Kit (Google OCR & Face Detection) is the largest contributor")
-            println("      - Use App Bundles (.aab) to reduce size by ~75% (only include needed architecture)")
         }
 
         // --- 7. SHOW UNUSED DEPENDENCIES ---

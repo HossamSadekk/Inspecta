@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.HossamSadekk"
-version = "2.0.0"
+version = "2.1.0"
 
 // Configure Java compatibility
 java {
