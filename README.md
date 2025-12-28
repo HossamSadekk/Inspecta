@@ -59,7 +59,7 @@ In your root `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("io.github.HossamSadekk.inspecta") version "2.0.0" apply false
+    id("io.github.HossamSadekk.inspecta") version "2.1.0" apply false
 }
 ```
 
@@ -67,7 +67,7 @@ In your app module's `build.gradle.kts`:
 
 ```kotlin
 plugins {
-    id("io.github.HossamSadekk.inspecta") version "2.0.0"
+    id("io.github.HossamSadekk.inspecta") version "2.1.0"
 }
 ```
 
